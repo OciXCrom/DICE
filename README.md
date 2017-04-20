@@ -1,0 +1,2 @@
+# -D.I.C.E.-Ultimate-Roll-the-Dice-R.T.D.-
+D.I.C.E. is a full remake of the original Roll The Dice plugin. Due to the old one being poorly coded, making changes to it, a.k.a trying to add new items or modify existing ones is nearly impossible. With this remake, all of that is changed! Every item has its own automatically generated cvars and it can be easily disabled on any map you want or completely removed. Multilingual support is now available! The plugin also includes an API which can be used to add new items.
