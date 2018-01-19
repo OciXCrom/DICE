@@ -64,7 +64,7 @@ enum _:Settings
 	Float:DHUD_HOLDTIME,
 	Float:DHUD_FADEINTIME,
 	Float:DHUD_FADEOUTTIME,
-	DICE_LOG
+	bool:DICE_LOG
 }
 
 new g_eSettings[Settings]
@@ -337,7 +337,7 @@ ReadMainFile()
 					else if(equal(szKey, "DHUD_FADEOUTTIME"))
 						g_eSettings[DHUD_FADEOUTTIME] = _:floatclamp(str_to_float(szValue), 0.01, 30.0)
 					else if(equal(szKey, "DICE_LOG"))
-						g_eSettings[DICE_LOG] = clamp(str_to_num(szValue), 0, 1)
+						g_eSettings[DICE_LOG] = _:clamp(str_to_num(szValue), 0, 1)
 				}
 			}
 		}
