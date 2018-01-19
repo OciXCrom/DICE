@@ -666,7 +666,7 @@ public _AddDiceItem(iPlugin, iParams)
 		eItem[MaxDuration] = AddDiceCvar(eItem[Name], "max", szMax, CVAR_INTEGER)
 	}
 
-	eItem[Glow] = get_param(9) == 1 ? true : false
+	eItem[Glow] = _:get_param(9)
 	
 	ArrayPushArray(g_aItems, eItem)
 	g_iItems++
