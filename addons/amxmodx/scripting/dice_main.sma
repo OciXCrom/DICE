@@ -63,7 +63,8 @@ enum _:Settings
 	Float:DHUD_FXTIME,
 	Float:DHUD_HOLDTIME,
 	Float:DHUD_FADEINTIME,
-	Float:DHUD_FADEOUTTIME
+	Float:DHUD_FADEOUTTIME,
+	DICE_LOG
 }
 
 new g_eSettings[Settings]
@@ -335,6 +336,8 @@ ReadMainFile()
 						g_eSettings[DHUD_FADEINTIME] = _:floatclamp(str_to_float(szValue), 0.01, 30.0)
 					else if(equal(szKey, "DHUD_FADEOUTTIME"))
 						g_eSettings[DHUD_FADEOUTTIME] = _:floatclamp(str_to_float(szValue), 0.01, 30.0)
+					else if(equal(szKey, "DICE_LOG"))
+						g_eSettings[DICE_LOG] = clamp(str_to_num(szValue), 0, 1)
 				}
 			}
 		}
@@ -575,12 +578,15 @@ RemoveGlow(id)
 	
 log_clear(message[], any:...)
 {
-	new szMessage[192]
-	vformat(szMessage, charsmax(szMessage), message, 2)
-	replace_all(szMessage, charsmax(szMessage), "!g", "")
-	replace_all(szMessage, charsmax(szMessage), "!n", "")
-	replace_all(szMessage, charsmax(szMessage), "!t", "")
-	log_amx(szMessage)
+	if(g_eSettings[DICE_LOG])
+	{
+		new szMessage[192]
+		vformat(szMessage, charsmax(szMessage), message, 2)
+		replace_all(szMessage, charsmax(szMessage), "!g", "")
+		replace_all(szMessage, charsmax(szMessage), "!n", "")
+		replace_all(szMessage, charsmax(szMessage), "!t", "")
+		log_amx(szMessage)
+	}
 }
 
 bool:is_blank(szString[])
@@ -659,8 +665,8 @@ public _AddDiceItem(iPlugin, iParams)
 		eItem[MinDuration] = AddDiceCvar(eItem[Name], "min", szMin, CVAR_INTEGER)
 		eItem[MaxDuration] = AddDiceCvar(eItem[Name], "max", szMax, CVAR_INTEGER)
 	}
-	
-	eItem[Glow] = get_param(9)
+
+	eItem[Glow] = _:get_param(9)
 	
 	ArrayPushArray(g_aItems, eItem)
 	g_iItems++
