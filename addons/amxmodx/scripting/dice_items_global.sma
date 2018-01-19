@@ -236,10 +236,12 @@ public OnWeaponChange(id)
 public ItemInstantHealth(id)
 {
 	new iRandom = random_num(GetDiceCvar(g_eCvars[InstantHealthMin]), GetDiceCvar(g_eCvars[InstantHealthMax]))
-	set_user_health(id, iRandom)
+	new userHP = get_user_health(id)
+	new newHP = userHP + iRandom
+	set_user_health(id, newHP >= 255 ? 255 : newHP)
 	
 	new szMessage[128]
-	formatex(szMessage, charsmax(szMessage), "%L", id, "DII_INSTANT_HEALTH", iRandom)
+	formatex(szMessage, charsmax(szMessage), "%L", id, "DII_INSTANT_HEALTH", newHP >= 255 ? 255 : newHP)
 	client_cmd(0, "spk ^"fvox/beep _comma beep _comma beep _comma administering_medical^"")
 	DiceDHUD(id, szMessage)
 	
